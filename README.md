@@ -1,5 +1,5 @@
 # Apple Music ALAC Downloader
-Original script by Sorrow. Modified by me to include some fixes and improvements.
+Original script by Sorrow. Modified by alacleaker to include some fixes and improvements.
 
 ## How to use
 1. Create a virtual device on Android Studio with a image that doesn't have Google APIs.
@@ -9,3 +9,8 @@ Original script by Sorrow. Modified by me to include some fixes and improvements
 5. Start frida server.
 6. Start the frida agent: `frida -U -l agent.js -f com.apple.android.music`.
 7. Start downloading some albums: `go run main.go https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511`.
+
+## Changes
+Now only accept 1 url as the first argument, second is for folder name.
+
+For exemple `o run main.go https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511 rick-astley` will download the album in a "rick-astley" (instead of the default "AM-DL Download" one)
