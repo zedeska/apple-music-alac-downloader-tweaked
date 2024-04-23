@@ -972,14 +972,14 @@ func writeCover(sanAlbumFolder, url string) error {
 	return nil
 }
 
-func rip(albumId string, token string, storefront string) error {
+func rip(albumId string, token string, storefront string, folder string) error {
 	meta, err := getMeta(albumId, token, storefront)
 	if err != nil {
 		fmt.Println("Failed to get album metadata.\n")
 		return err
 	}
 	albumFolder := fmt.Sprintf("%s - %s", meta.Data[0].Attributes.ArtistName, meta.Data[0].Attributes.Name)
-	sanAlbumFolder := filepath.Join("AM-DL downloads", forbiddenNames.ReplaceAllString(albumFolder, "_"))
+	sanAlbumFolder := filepath.Join(folder, forbiddenNames.ReplaceAllString(albumFolder, "_"))
 	os.MkdirAll(sanAlbumFolder, os.ModePerm)
 	fmt.Println(albumFolder)
 	err = writeCover(sanAlbumFolder, meta.Data[0].Attributes.Artwork.URL)
@@ -1047,19 +1047,16 @@ func main() {
 		fmt.Println("Failed to get token.")
 		return
 	}
-	albumTotal := len(os.Args[1:])
-	for albumNum, url := range os.Args[1:] {
-		fmt.Printf("Album %d of %d:\n", albumNum+1, albumTotal)
-		storefront, albumId := checkUrl(url)
-		if albumId == "" {
-			fmt.Printf("Invalid URL: %s\n", url)
-			continue
-		}
-		err := rip(albumId, token, storefront)
-		if err != nil {
-			fmt.Println("Album failed.")
-			fmt.Println(err)
-		}
+	folder := os.Args[2]
+	url := os.Args[1]
+	storefront, albumId := checkUrl(url)
+	if albumId == "" {
+		fmt.Printf("Invalid URL: %s\n", url)
+	}
+	err = rip(albumId, token, storefront, folder)
+	if err != nil {
+		fmt.Println("Album failed.")
+		fmt.Println(err)
 	}
 }
 
