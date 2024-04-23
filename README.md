@@ -13,4 +13,4 @@ Original script by Sorrow. Modified by alacleaker to include some fixes and impr
 ## Changes
 Now only accept 1 url as the first argument, second is for folder name.
 
-For exemple `o run main.go https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511 rick-astley` will download the album in a "rick-astley" (instead of the default "AM-DL Download" one)
+For exemple `go run main.go https://music.apple.com/us/album/whenever-you-need-somebody-2022-remaster/1624945511 rick-astley` will download the album in a "rick-astley" (instead of the default "AM-DL Download" one)
